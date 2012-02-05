@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- 
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- 
+
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -164,7 +164,7 @@ void OPL_musicPlayer(void *udata, Uint8 *stream, int len) {
 	musicUpdate(udata, stream, len);
 }
 
-void CALLBACK vertexCallback(GLvoid *vertex) {
+void CALLBACK vertexCallback(void *vertex) {
 	GLdouble *ptr;
 	GLdouble x;
 	GLdouble y;
@@ -287,7 +287,7 @@ void GFXSystem::init()  // that's the constructor of the system dependent
 	tobj = gluNewTess();
 
 	// Set callback functions
-	gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid( *)())vertexCallback);
+	/*gluTessCallback(tobj, GLU_TESS_VERTEX, vertexCallback);
 	gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid( *)())glBegin);
 	gluTessCallback(tobj, GLU_TESS_END, glEnd);
 	gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid( *)())combineCallback);
@@ -295,7 +295,7 @@ void GFXSystem::init()  // that's the constructor of the system dependent
 	gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid( *)())vertexCallback);
 	gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid( *)())glBegin);
 	gluTessCallback(tobj, GLU_TESS_END, glEnd);
-	gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid( *)())combineCallback);
+	gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid( *)())combineCallback);*/
 
 	// init debug font
 #if 0
@@ -515,9 +515,9 @@ void GFXSystem::flip(unsigned char *videoBuffer) {
 			}
 		}
 
-		glColor4ub(g_driver->_palette[quadTable[bestIdx].color * 3], 
-				   g_driver->_palette[quadTable[bestIdx].color * 3 + 1], 
-				   g_driver->_palette[quadTable[bestIdx].color * 3 + 2], 
+		glColor4ub(g_driver->_palette[quadTable[bestIdx].color * 3],
+				   g_driver->_palette[quadTable[bestIdx].color * 3 + 1],
+				   g_driver->_palette[quadTable[bestIdx].color * 3 + 2],
 				   quadTable[bestIdx].transparency);
 
 		glEnable(GL_POLYGON_OFFSET_FILL);
@@ -749,9 +749,9 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 
 	switch(polyType) {
 	case 0: { // flat:
-		glColor4ub(g_driver->_palette[color*3], 
-				   g_driver->_palette[color*3+1], 
-				   g_driver->_palette[color*3+2], 
+		glColor4ub(g_driver->_palette[color*3],
+				   g_driver->_palette[color*3+1],
+				   g_driver->_palette[color*3+2],
 				   255);
 		glBegin(GL_POLYGON);
 
@@ -775,9 +775,9 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 
 		glBindTexture(GL_TEXTURE_2D, ditherTexture);
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
-		glColor4ub(g_driver->_palette[color*3], 
-				   g_driver->_palette[color*3+1], 
-				   g_driver->_palette[color*3+2], 
+		glColor4ub(g_driver->_palette[color*3],
+				   g_driver->_palette[color*3+1],
+				   g_driver->_palette[color*3+2],
 				   255);
 		readList = (float *)buffer;
 
@@ -805,9 +805,9 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 		break;
 	}
 	case 2: { // trans
-		glColor4ub(g_driver->_palette[color*3], 
-				   g_driver->_palette[color*3+1], 
-				   g_driver->_palette[color*3+2], 
+		glColor4ub(g_driver->_palette[color*3],
+				   g_driver->_palette[color*3+1],
+				   g_driver->_palette[color*3+2],
 				   128);
 		glBegin(GL_POLYGON);
 
@@ -977,8 +977,8 @@ void GFXSystem::fillPoly(float *buffer, int numPoint, unsigned char color, uint8
 }
 
 void GFXSystem::draw3dLine(float x1, float y1, float z1, float x2, float y2, float z2, unsigned char color) {
-	glColor4ub(g_driver->_palette[color*3], 
-			   g_driver->_palette[color*3+1], 
+	glColor4ub(g_driver->_palette[color*3],
+			   g_driver->_palette[color*3+1],
 			   g_driver->_palette[color*3+2], 255);
 
 	glBegin(GL_LINES);
@@ -1018,8 +1018,8 @@ void GFXSystem::cleanScreenKeepZBuffer() {
 }
 
 void GFXSystem::draw3dQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, unsigned char color, int transparency) {
-	glColor4ub(g_driver->_palette[(color+3)*3], 
-			   g_driver->_palette[(color+3)*3+1], 
+	glColor4ub(g_driver->_palette[(color+3)*3],
+			   g_driver->_palette[(color+3)*3+1],
 			   g_driver->_palette[(color+3)*3+2], 255);
 	glBegin(GL_LINE_LOOP);
 	glVertex3f(x1, y1, z1);
@@ -1065,9 +1065,9 @@ void GFXSystem::draw3dQuad(float x1, float y1, float z1, float x2, float y2, flo
 
 		positionInQuadTable++;
 	} else {
-		glColor4ub(g_driver->_palette[color*3], 
-				   g_driver->_palette[color*3+1], 
-				   g_driver->_palette[color*3+2], 
+		glColor4ub(g_driver->_palette[color*3],
+				   g_driver->_palette[color*3+1],
+				   g_driver->_palette[color*3+2],
 				   255);
 
 		glEnable(GL_POLYGON_OFFSET_FILL);
@@ -1084,8 +1084,8 @@ void GFXSystem::draw3dQuad(float x1, float y1, float z1, float x2, float y2, flo
 void GFXSystem::drawSphere(float X, float Y, float Z, uint8 color, float size) {
 	glMatrixMode(GL_MODELVIEW);
 
-	glColor3ub(g_driver->_palette[color*3], 
-			   g_driver->_palette[color*3+1], 
+	glColor3ub(g_driver->_palette[color*3],
+			   g_driver->_palette[color*3+1],
 			   g_driver->_palette[color*3+2]);
 	glPushMatrix();
 

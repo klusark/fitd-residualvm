@@ -427,7 +427,7 @@ extern int32 animRot2;
 extern int32 animRot3;
 extern char *animVar1;
 extern char *animVar3;
-extern char *animVar4;
+
 
 extern int16 newFloor;
 
